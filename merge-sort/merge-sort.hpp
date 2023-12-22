@@ -12,6 +12,7 @@ struct ListElement {
 
 struct List {
     std::unique_ptr<ListElement> head;
+
     List(std::initializer_list<int>);
     List() = default;
 
@@ -26,6 +27,14 @@ struct List {
             auto tmp = std::move(ptr->next);
             ptr = std::move(tmp);
         }
+    }
+
+    size_t getsize() const noexcept {
+        size_t result = 0;
+        for (auto ptr = head.get(); ptr; ptr = ptr->next.get()) {
+            ++result;
+        }
+        return result;
     }
 };
 
